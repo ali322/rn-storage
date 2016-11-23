@@ -1,0 +1,35 @@
+{
+  "name": "rn-storage",
+  "version": "1.0.0",
+  "description": "react-native AsyncStorage wrapper",
+  "main": "storage.js",
+  "scripts": {
+    "test": "NODE_ENV=test ava --tap | tap-spec"
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "failFast": true,
+    "babel": "inherit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali322/rn-storage.git"
+  },
+  "keywords": [
+    "react-native",
+    "storage"
+  ],
+  "author": "alichen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ali322/rn-storage/issues"
+  },
+  "homepage": "https://github.com/ali322/rn-storage#readme",
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-preset-react-native": "^1.9.0",
+    "tap-spec": "^4.1.1"
+  }
+}
