@@ -31,5 +31,8 @@
     "ava": "^0.17.0",
     "babel-preset-react-native": "^1.9.0",
     "tap-spec": "^4.1.1"
+  },
+  "peerDependencies": {
+    "uuid": "^3.0.0"
   }
 }

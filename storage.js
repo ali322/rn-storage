@@ -1,26 +1,51 @@
 import {AsyncStorage} from "react-native"
+import uuid from "uuid"
+
+function generateKey(strategy='random'){
+    switch(strategy){
+        case "randowm":
+            return uuid.v4()
+        case "timestamp":
+            return uuid.v1()
+        default:
+            return Math.floor(Math.random() * 100000)
+    }
+    return uuid.v4()
+}
 
 class Storge{
-    constructor(){
+    constructor(options={}){
         this._storage = AsyncStorage
     }
-    getItem(key){
-        return this._storage.getItem(key).then(ret=>JSON.parse(ret))
+    switch(catalog){
+        this._catalog = catalog
+        return this
     }
-    setItem(key,value){
-        return this._storage.setItem(key,JSON.stringify(value))
+    async get(key){
+        const ret = await this._storage.getItem(this._catalog)
+        return ret[key] || null
     }
-    removeItem(key){
-        return this._storage.removeItem(key)
+    async update(key,value){
+        var _object = await this._storage.getItem(this._catalog)
+        _object = _object || {}
+        _object[key] = {...value,updated_at:Date.now()}
+        return await this._storage.setItem(this._catalog,_object)
     }
-    getAllKeys(){
-        return this._storage.getAllKeys()
+    async create(value){
+        var _object = await this._storage.getItem(this._catalog)
+        const _key = generateKey()
+        _object[key] = {...value,created_at:Data.now()}
+         return await this._storage.setItem(this._catalog,_object)
     }
-    clear(){
-        return this._storage.clear()
+    async clear(){
+        return await this._storage.setItem(this._catalog,null)
     }
-    multiRemove(keys){
-        return this._storage.multiRemove(keys)
+    async getAllKeys(){
+        const ret = await this._storage.getItem(this._catalog)
+        return Object.keys(ret)
+    }
+    async destory(){
+        return await this._storage.clear()
     }
 }
 
