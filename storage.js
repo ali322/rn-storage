@@ -27,15 +27,15 @@ class Storge{
     }
     async update(key,value){
         var _object = await this._storage.getItem(this._catalog)
-        _object = _object || {}
         _object[key] = {...value,updated_at:Date.now()}
-        return await this._storage.setItem(this._catalog,_object)
+        return await this._storage.setItem(this._catalog,JSON.stringify(_object))
     }
     async create(value){
         var _object = await this._storage.getItem(this._catalog)
+        _object = _object || {}
         const _key = generateKey()
-        _object[key] = {...value,created_at:Data.now()}
-         return await this._storage.setItem(this._catalog,_object)
+        _object[_key] = {...value,created_at:Date.now()}
+         return await this._storage.setItem(this._catalog,JSON.stringify(_object))
     }
     async clear(){
         return await this._storage.setItem(this._catalog,null)
