@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import {View,Text,TouchableOpacity,StyleSheet,TextInput,Modal,Dimensions,ListView} from "react-native"
+import {View,Text,TouchableOpacity,StyleSheet,TextInput,Modal,Dimensions,ListView,LayoutAnimation} from "react-native"
 import Storage from "./storage"
 import {Toast,NavBar,Alert} from "yarn-ui"
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -31,19 +31,24 @@ class Example extends Component{
             this.setState({
                 dataSource:this.state.dataSource.cloneWithRows(animals)
             })
+            LayoutAnimation.spring()
         }catch(err){
             this._toast.show("读取失败")
             // console.error(err)
         }
     }
+    async _refreshListView(){
+        const animals = await storage.findAll()
+        LayoutAnimation.spring()
+        this.setState({
+            dataSource:this.state.dataSource.cloneWithRows(animals)
+        })
+    }
     _removeAll(){
         this._alert.alert("提示","确认清空吗?",[
             {text:"Yes",onPress:async ()=>{
                 await storage.clear()
-                const animals = await storage.findAll()
-                this.setState({
-                    dataSource:this.state.dataSource.cloneWithRows(animals)
-                })
+                this._refreshListView()
             }},
             {text:"No",style:"cancel"}
         ])
@@ -53,10 +58,7 @@ class Example extends Component{
         try{
             let _key = await storage.create(this.state.animal)
             this._toast.show("添加成功!")
-            const animals = await storage.findAll()
-            this.setState({
-                dataSource:this.state.dataSource.cloneWithRows(animals)
-            })
+            this._refreshListView()
         }catch(err){
             // console.log("err",err)
             this._toast.show("添加失败!")
@@ -67,10 +69,7 @@ class Example extends Component{
         try{
             await storage.update(this.state.updatedAnimal.id,{name:this.state.updatedAnimal.name})
             this._toast.show("保存成功!")
-            const animals = await storage.findAll()
-            this.setState({
-                dataSource:this.state.dataSource.cloneWithRows(animals)
-            })
+            this._refreshListView()
         }catch(err){
             this._toast.show("保存失败!")
         }
@@ -81,10 +80,7 @@ class Example extends Component{
                 try{
                     await storage.delete(id)
                     this._toast.show("删除成功!")
-                    const animals = await storage.findAll()
-                    this.setState({
-                        dataSource:this.state.dataSource.cloneWithRows(animals)
-                    })
+                    this._refreshListView()
                 }catch(err){
                     this._toast.show("删除失败!")
                 }
@@ -114,7 +110,7 @@ class Example extends Component{
                     this.setState({modalActive:true})
                 }}/>
                 <ListView dataSource={this.state.dataSource} renderRow={this._renderRow} enableEmptySections={true}/>
-                <Modal animationType="none" visible={this.state.modalActive} transparent={true} 
+                <Modal animationType="fade" visible={this.state.modalActive} transparent={true} 
                     onRequestClose={()=>this.setState({modalActive:false})}>
                     <View style={styles.modalContainer}>
                     <View style={styles.modalWrapper}>
@@ -134,7 +130,7 @@ class Example extends Component{
                     </View>
                     </View>
                 </Modal>
-                <Modal animationType="none" visible={this.state.updateModalActive} transparent={true} 
+                <Modal animationType="fade" visible={this.state.updateModalActive} transparent={true} 
                     onRequestClose={()=>this.setState({updateModalActive:false})}>
                     <View style={styles.modalContainer}>
                     <View style={styles.modalWrapper}>
