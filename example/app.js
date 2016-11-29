@@ -4,8 +4,11 @@ import Storage from "rn-storage"
 import {Toast,NavBar,Alert} from "yarn-ui"
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const storage = new Storage()
-storage.switch("example")
+let storage = new Storage()
+storage.registerSchema(["example","other"])
+
+var exampleEntity = storage.entity("example")
+var otherEntity = storage.entity("other")
 
 class Example extends Component{
     constructor(){
@@ -27,18 +30,18 @@ class Example extends Component{
     }
     async componentDidMount(){
         try{
-            const animals = await storage.findAll()
+            const animals = await exampleEntity.findAll()
             this.setState({
                 dataSource:this.state.dataSource.cloneWithRows(animals)
             })
             LayoutAnimation.spring()
         }catch(err){
             this._toast.show("读取失败")
-            // console.error(err)
+            console.error(err)
         }
     }
     async _refreshListView(){
-        const animals = await storage.findAll()
+        const animals = await exampleEntity.findAll()
         LayoutAnimation.spring()
         this.setState({
             dataSource:this.state.dataSource.cloneWithRows(animals)
@@ -47,7 +50,7 @@ class Example extends Component{
     _removeAll(){
         this._alert.alert("提示","确认清空吗?",[
             {text:"Yes",onPress:async ()=>{
-                await storage.clear()
+                await exampleEntity.clear()
                 this._refreshListView()
             }},
             {text:"No",style:"cancel"}
@@ -56,18 +59,18 @@ class Example extends Component{
     async _handleCreate(){
         this.setState({modalActive:false})
         try{
-            let _key = await storage.create(this.state.animal)
+            let _key = await exampleEntity.create(this.state.animal)
             this._toast.show("添加成功!")
             this._refreshListView()
         }catch(err){
-            // console.log("err",err)
+            console.log("err",err)
             this._toast.show("添加失败!")
         }
     }
     async _handleSave(){
         this.setState({updateModalActive:false})
         try{
-            await storage.update(this.state.updatedAnimal.id,{name:this.state.updatedAnimal.name})
+            await exampleEntity.update(this.state.updatedAnimal.id,{name:this.state.updatedAnimal.name})
             this._toast.show("保存成功!")
             this._refreshListView()
         }catch(err){
@@ -78,7 +81,7 @@ class Example extends Component{
         this._alert.alert("提示","确定删除?",[
             {text:"Yes",onPress:async ()=>{
                 try{
-                    await storage.delete(id)
+                    await exampleEntity.delete(id)
                     this._toast.show("删除成功!")
                     this._refreshListView()
                 }catch(err){

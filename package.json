@@ -1,6 +1,6 @@
 {
   "name": "rn-storage",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "react-native AsyncStorage wrapper",
   "main": "storage.js",
   "scripts": {
@@ -34,5 +34,6 @@
   },
   "peerDependencies": {
     "uuid": "^3.0.0"
-  }
+  },
+  "dependencies": {}
 }

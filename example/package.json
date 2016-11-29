@@ -10,7 +10,7 @@
     "react": "~15.3.1",
     "react-native": "0.37.0",
     "react-native-vector-icons": "^3.0.0",
-    "rn-storage": "^1.0.1",
+    "rn-storage": "^1.0.6",
     "yarn-ui": "^1.0.3"
   },
   "devDependencies": {
