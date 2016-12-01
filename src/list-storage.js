@@ -1,5 +1,5 @@
-import {AsyncStorage} from "react-native"
 import uuid from "uuid"
+import BaseStorage from "./base-storage"
 
 function generateKey(strategy='random'){
     switch(strategy){
@@ -11,19 +11,6 @@ function generateKey(strategy='random'){
             return Math.floor(Math.random() * 100000)
     }
     return uuid.v4()
-}
-
-class BaseStorage{
-    constructor(entity,storage){
-        this._entity = entity
-        this._storage = storage
-    }
-    async clear(){
-        return await this._storage.setItem(this._entity,JSON.stringify([]))
-    }
-    async destory(){
-        return await this._storage.clear()
-    }
 }
 
 class ListStorage extends BaseStorage{
@@ -86,70 +73,6 @@ class ListStorage extends BaseStorage{
         })
         await this._storage.setItem(this._entity,JSON.stringify(_object))
     }
-    
 }
 
-class ObjectStorage{
-    async findAll(){
-        var _object = await this._storage.getItem(this._entity)
-        if(_object === null){
-            return Promise.resolve({})
-        }
-        _object = JSON.parse(_object)
-        if(Array.isArray(_object) === false){
-            return Promise.reject(new Error("storage is invalid"))
-        }
-        return Promise.resolve(_object)
-    }
-    async set(value){
-        if(typeof value !== "object"){
-            return Promise.reject(new Error("value is invalid"))
-        }
-        var _object = await this.findAll()
-        if(Array.isArray(value)){
-            _ids = []
-            for(var i in value){
-                _object = {..._object,...value[i]}
-            }
-        }else{
-            _object = {..._object,...value}
-        }
-        try{
-            await this._storage.setItem(this._entity,JSON.stringify(_object))
-            return Promise.resolve(_ids)
-        }catch(err){
-            return Promise.reject(err)
-        }
-    }
-}
-
-class Storge{
-    constructor(options={}){
-        const defaultOptions = {
-            type:"AsyncStorage"
-        }
-        options = {...defaultOptions,...options}
-        switch(options.type){
-            case "localStorage":
-                this._storage = window.localStorage
-            default:
-                this._storage = AsyncStorage
-        }
-        this._entities = {}
-    }
-    registerSchema(schemas=[]){
-        for(var i in schemas){
-            var _schema = schemas[i]
-            if(typeof _schema === "string"){
-                this._entities[_schema] = new ListStorage(_schema,this._storage)
-            }else if(typeof _schema === "object" && _schema.type === "object"){
-                this._entities[_schema.name] = new ObjectStorage(_schema.name,this._storage)
-            }
-        }
-    }
-    entity(key){
-        return this._entities[key]
-    }
-}
-
-export default Storge
+export default ListStorage

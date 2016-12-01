@@ -14,6 +14,9 @@ npm install rn-storage --save
 Useage
 ===
 
+please refer to [API](./API.md)
+
+
 ## Todo
 
 - fix some unknow bugs

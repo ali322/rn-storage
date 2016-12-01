@@ -5,7 +5,8 @@ import {Toast,NavBar,Alert} from "yarn-ui"
 import Icon from 'react-native-vector-icons/Ionicons'
 
 let storage = new Storage()
-storage.registerSchema(["example","other"])
+storage.registerSchema(["example","other","user"])
+global.storage = storage
 
 var exampleEntity = storage.entity("example")
 var otherEntity = storage.entity("other")
