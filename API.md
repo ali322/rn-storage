@@ -87,7 +87,7 @@ delete the storage
 
 #### set(value)
 
-set the record of entity(existed in object entity only)
+set the record of entity(object entity only)
 
 | Name | Type | Description |
 | :--- | :--- | :--- |

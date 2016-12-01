@@ -14,7 +14,21 @@ npm install rn-storage --save
 Useage
 ===
 
-please refer to [API](./API.md)
+```javascript
+let storage = new Storage()
+storage.registerSchema(["example"])
+
+//mount to global namespace for all the scene component
+global.storage = storage
+
+var exampleEntity = storage.entity("example")
+
+exampleEntity.findAll().then(ret=>{
+    //your bussiness code come here
+})
+```
+
+more instructions refer to [API](./API.md)
 
 
 ## Todo
