@@ -5,90 +5,90 @@ RN-Storage
 
 ### Storage(options)
 
-Parameters:
+参数:
 
-| Name | Type | Description |
+| 名字 | 类型 | 描述 |
 | :--- | :--- | :--- |
-| options | Object | storage backend type and etc |
+| options | Object | 存储容器类型 |
 
-Return the storage instance
+返回存储实例
 
 ### storage methods
 
 #### registerSchema(schemas)
 
-register all of entities with schemas
+使用schema注册所有的实体
 
-Parameters:
+参数:
 
-| Name | Type | Description |
+| 名字 | 类型 | 描述 |
 | :--- | :--- | :--- |
-| schemas | Array<String|Object> | entity name and type |
+| schemas | Array<String|Object> | 实体名字和类型 |
 
 #### entity(name)
 
-get the named entity
+获取指定实体
 
-Parameters:
+参数:
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
-| name | String | entity name |
+| name | String | 实体名字 |
 
-Return the entity instance
+返回实体实例
 
 ### entity methods
 
 #### findById(id)
 
-find the record by id
+根据ID获取记录
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
 | id | Number | record id |
 
 #### findAll()
 
-find all the records
+获取所有的记录
 
 #### update(id,value)
 
-update the record by id
+根据ID更新记录
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
 | id | Number | record id |
 | value | Object | the new record |
 
 #### create(value)
 
-create new record
+创建新记录
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
 | value | Object | the new record |
 
 #### delete(id)
 
-delete record by id
+根据ID删除记录
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
 | id | Number | record id |
 
 
 #### clear()
 
-delete the entity
+删除实体
 
 #### destory()
 
-delete the storage 
+删除存储实例
 
 #### set(value)
 
-set the record of entity(object entity only)
+设置新记录(对象实体方法)
 
-| Name | Type | Description |
+| 名称 | 类型 | 描述 |
 | :--- | :--- | :--- |
 | value | Object | the new record |
