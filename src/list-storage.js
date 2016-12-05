@@ -73,6 +73,9 @@ class ListStorage extends BaseStorage{
         })
         await this._storage.setItem(this._entity,JSON.stringify(_object))
     }
+    async clear(){
+        return await this._storage.setItem(this._entity,JSON.stringify([]))
+    }
 }
 
 export default ListStorage

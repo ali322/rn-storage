@@ -7,7 +7,7 @@ class ObjectStorage extends BaseStorage{
             return Promise.resolve({})
         }
         _object = JSON.parse(_object)
-        if(Array.isArray(_object) === false){
+        if(typeof _object !== "object"){
             return Promise.reject(new Error("storage is invalid"))
         }
         return Promise.resolve(_object)
@@ -31,6 +31,9 @@ class ObjectStorage extends BaseStorage{
         }catch(err){
             return Promise.reject(err)
         }
+    }
+    async clear(){
+        return await this._storage.setItem(this._entity,JSON.stringify({}))
     }
 }
 
