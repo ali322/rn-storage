@@ -1,5 +1,6 @@
-RN-Storage 
+RN-Storage [![CircleCI](https://circleci.com/gh/ali322/rn-storage.svg?style=svg)](https://circleci.com/gh/ali322/rn-storage) [![npm version](https://badge.fury.io/js/rn-storage.svg)](https://badge.fury.io/js/rn-storage)
 ===
+[![NPM](https://nodei.co/npm/rn-storage.png)](https://nodei.co/npm/rn-storage/)
 
 React-Native AsyncStorage wrapper
 
