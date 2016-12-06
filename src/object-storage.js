@@ -18,7 +18,6 @@ class ObjectStorage extends BaseStorage{
         }
         var _object = await this.findAll()
         if(Array.isArray(value)){
-            _ids = []
             for(var i in value){
                 _object = {..._object,...value[i]}
             }
@@ -27,7 +26,7 @@ class ObjectStorage extends BaseStorage{
         }
         try{
             await this._storage.setItem(this._entity,JSON.stringify(_object))
-            return Promise.resolve(_ids)
+            return Promise.resolve("ok")
         }catch(err){
             return Promise.reject(err)
         }
