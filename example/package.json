@@ -7,11 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "nva-ui": "0.0.2",
     "react": "~15.3.1",
     "react-native": "0.37.0",
     "react-native-vector-icons": "^3.0.0",
-    "rn-storage": "../",
-    "yarn-ui": "^1.0.3"
+    "rn-storage": "../"
   },
   "devDependencies": {
     "babel-jest": "17.0.2",

@@ -1,7 +1,7 @@
 import React,{Component} from "react"
 import {View,Text,TouchableOpacity,StyleSheet,TextInput,Modal,Dimensions,ListView,LayoutAnimation} from "react-native"
 import Storage from "rn-storage"
-import {Toast,NavBar,Alert} from "yarn-ui"
+import {Toast,NavBar,Alert} from "nva-ui"
 import Icon from 'react-native-vector-icons/Ionicons'
 
 let storage = new Storage()
